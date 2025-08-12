@@ -15,10 +15,12 @@
 const int pointer = 18; //connection for the laser pointer
 const int led = 19;  //connection for the alarm led
 const int piezo = 20; //connection for the piezo buzzer
-const int photoresistor = 21; //connection for the photoresistor
-const int border_brightness = 750;  //controls the brightness at which the alarm goes off
+const int photoresistor = 1; //connection for the photoresistor
+const int border_brightness = 440;  //controls the brightness at which the alarm goes off
 
 void setup() {
+  Serial.begin(115200);
+
   pinMode(pointer, OUTPUT);
   pinMode(led, OUTPUT);
   pinMode(piezo, INPUT);
@@ -27,6 +29,7 @@ void setup() {
 
 void loop() {
   digitalWrite(pointer, HIGH);
+  Serial.println(analogRead(photoresistor));
   if (analogRead(photoresistor) < border_brightness) {
     digitalWrite(led, HIGH);
     tone(piezo, 880);// A5
